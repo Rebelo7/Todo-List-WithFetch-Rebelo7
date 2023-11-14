@@ -26,14 +26,13 @@ const Home = () => {
         value={task} 
         placeholder="Task for today"
         onKeyDown={handleKeyDown}
-         
       />
       <button onClick={addTask}>Add Task</button>
       <ul>
        {tasks.map((task, index) => <li key={index}>{task}<i class="fa-solid fa-trash" onClick={() => setTasks(tasks.filter((task, currenTask) => index !== currenTask))} ></i></li>)}
       </ul>
     </div>
-     <div className='tasksRemaining'>{tasks.length}Tasks Remaining</div>
+     <div className='tasksRemaining'>{tasks.length} Tasks Remaining</div>
   </div>
  );
 }
