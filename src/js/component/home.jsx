@@ -6,10 +6,16 @@ const Home = () => {
  const DOMAIN = "https://playground.4geeks.com/apis/fake/todos/user/Rebelo7";
 
  const handleFetchTasks = async () => {
- const textResponse = await fetch(DOMAIN);
- const jsonResponse = await textResponse.json();
- setTasks(jsonResponse);
-}
+  try {
+    const textResponse = await fetch(DOMAIN);
+    const jsonResponse = await textResponse.json();
+    setTasks(jsonResponse);
+  } catch (error) {
+    console.error('Error fetching tasks:', error);
+  }
+ }
+
+
 
  useEffect(() => {
  handleFetchTasks(); 
@@ -17,7 +23,7 @@ const Home = () => {
 
  async function updateTask(updatedList) {
  
-   const response = await fetch(DOMAIN, {
+    await fetch(DOMAIN, {
      method: 'PUT',
      headers: {
        "Content-Type": "application/json"
@@ -33,6 +39,7 @@ const Home = () => {
   const updatedList = [...tasks, newTask ]; 
   setTasks(updatedList);
   setTask('');
+  updateTask(updatedList)
  }
 
  const handleKeyDown = (event) => {
@@ -43,9 +50,9 @@ const Home = () => {
 
  const handleDelete = (index) => {
   const updatedList = tasks.filter((task, currenTask) => index !== currenTask);
-  setTasks(updatedList, () => {
-   updateTask(updatedList);
-  });
+  setTasks(updatedList);
+  updateTask(updatedList);
+  
  }
  
 
